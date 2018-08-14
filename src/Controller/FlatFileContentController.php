@@ -45,7 +45,7 @@ class FlatFileContentController implements ContainerInjectableInterface
         $content = file_get_contents($file);
         $content = $this->di->get("textfilter")->parse(
             $content,
-            ["yamlfrontmatter", "shortcode", "markdown", "titlefromheader"]
+            ["frontmatter", "variable", "shortcode", "markdown", "titlefromheader"]
         );
 
         // Add content as a view and then render the page
