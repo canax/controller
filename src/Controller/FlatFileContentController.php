@@ -1,12 +1,12 @@
 <?php
 
-namespace Anax\Page;
+namespace Anax\Controller;
 
 use Anax\Commons\ContainerInjectableInterface;
 use Anax\Commons\ContainerInjectableTrait;
 
 /**
- * A default page rendering class.
+ * A controller for flat file markdown content.
  */
 class FlatFileContentController implements ContainerInjectableInterface
 {
@@ -17,9 +17,10 @@ class FlatFileContentController implements ContainerInjectableInterface
     /**
      * Render a page using flat file content.
      *
-     * @return void
+     * @return mixed as null when flat file is not found and otherwise a 
+     *               complete response object with content to render.
      */
-    public function render()
+    public function catchAll()
     {
         // Get the current route and see if it matches a content/file
         $path = $this->di->get("request")->getRoute();
@@ -28,7 +29,7 @@ class FlatFileContentController implements ContainerInjectableInterface
 
         $file = is_file($file1) ? $file1 : null;
         $file = is_file($file2) ? $file2 : $file;
-
+        
         if (!$file) {
             return;
         }
@@ -47,11 +48,13 @@ class FlatFileContentController implements ContainerInjectableInterface
             ["yamlfrontmatter", "shortcode", "markdown", "titlefromheader"]
         );
 
-        // Render a standard page using layout
-        $this->di->get("view")->add("default1/article", [
+        // Add content as a view and then render the page
+        $page = $this->di->get("page");
+        $page->add("anax/v2/article/default", [
             "content" => $content->text,
             "frontmatter" => $content->frontmatter,
         ]);
-        $this->di->get("pageRender")->renderPage($content->frontmatter);
+
+        return $page->render($content->frontmatter); 
     }
 }

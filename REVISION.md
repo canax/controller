@@ -8,6 +8,7 @@ v2.0.0-alpha.* (2018-08-14)
 
 * Integrate with Anax oophp me.
 * Remove unnused config/ dir.
+* Integrated FlatFileContentController with Anax Flat.
 
 
 
