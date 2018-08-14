@@ -24,7 +24,6 @@ class DevelopmentController implements ContainerInjectableInterface
      */
     public function catchAll() : object
     {
-        $title = " | Anax development utilities";
         $pages = [
             "" => "index",
             "di" => "di",
@@ -49,7 +48,8 @@ class DevelopmentController implements ContainerInjectableInterface
         );
 
         return $page->render([
-            "title" => ucfirst($pages[$path]) . $title
+            "title" => ucfirst($pages[$path]),
+            "baseTitle" => " | Anax development utilities"
         ]); 
     }
 }
