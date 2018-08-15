@@ -3,7 +3,7 @@ Revision history
 
 
 
-v2.0.0-alpha.* (2018-08-15)
+v2.0.0-alpha.4 (2018-08-15)
 ---------------------------------
 
 * Adding SampleController.
