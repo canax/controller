@@ -18,11 +18,13 @@ class DevelopmentController implements ContainerInjectableInterface
     /**
      * Render views that are supported.
      *
+     * @param array $args as a variadic to catch all arguments.
+     *
      * @throws Anax\Route\Exception\NotFoundException when route is not found.
 
      * @return object as the response.
      */
-    public function catchAll() : object
+    public function catchAll(...$args) : object
     {
         $pages = [
             "" => "index",
@@ -30,13 +32,15 @@ class DevelopmentController implements ContainerInjectableInterface
             "request" => "request",
             "router" => "router",
             "session" => "session",
+            "session/increment" => "session_increment",
+            "session/destroy" => "session_destroy",
             "view" => "view",
         ];
 
         $path = $this->di->get("router")->getMatchedPath();
 
         if (!array_key_exists($path, $pages)) {
-            throw new NotFoundException();
+            throw new NotFoundException("No such page '$path' in the development controller.");
         }
 
         $page = $this->di->get("page");

@@ -3,6 +3,13 @@ Revision history
 
 
 
+v2.0.0-alpha.5 (2018-08-15)
+---------------------------------
+
+* Add variadic to all catchAll controller actions.
+
+
+
 v2.0.0-alpha.4 (2018-08-15)
 ---------------------------------
 

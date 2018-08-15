@@ -16,13 +16,16 @@ class ErrorHandlerController implements ContainerInjectableInterface
 
 
     /**
-     * Add internal routes for 403, 404 and 500.
+     * Add internal routes for 403, 404 and 500 that provides a page with
+     * error information, using the default page layout.
+     *
+     * @param string $message with details.
      *
      * @throws Anax\Route\Exception\NotFoundException
 
-     * @return void
+     * @return object as the response.
      */
-    public function catchAll()
+    public function catchAll() : object
     {
         $title = " | Anax";
         $pages = [

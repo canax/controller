@@ -17,10 +17,12 @@ class FlatFileContentController implements ContainerInjectableInterface
     /**
      * Render a page using flat file content.
      *
+     * @param array $args as a variadic to catch all arguments.
+     *
      * @return mixed as null when flat file is not found and otherwise a 
      *               complete response object with content to render.
      */
-    public function catchAll()
+    public function catchAll(...$args)
     {
         // Get the current route and see if it matches a content/file
         $path = $this->di->get("request")->getRoute();
