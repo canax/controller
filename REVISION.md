@@ -3,6 +3,14 @@ Revision history
 
 
 
+v2.0.0-alpha.* (2018-08-15)
+---------------------------------
+
+* Adding SampleController.
+* Integrate with Anax Lite.
+
+
+
 v2.0.0-alpha.3 (2018-08-14)
 ---------------------------------
 
