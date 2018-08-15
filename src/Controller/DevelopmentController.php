@@ -54,6 +54,6 @@ class DevelopmentController implements ContainerInjectableInterface
         return $page->render([
             "title" => ucfirst($pages[$path]),
             "baseTitle" => " | Anax development utilities"
-        ]); 
+        ]);
     }
 }

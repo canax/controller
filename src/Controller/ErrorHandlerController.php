@@ -59,6 +59,6 @@ class ErrorHandlerController implements ContainerInjectableInterface
 
         return $page->render([
             "title" => $pages[$path][0] . $title
-        ], $path); 
+        ], $path);
     }
 }

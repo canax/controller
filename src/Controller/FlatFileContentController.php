@@ -19,7 +19,7 @@ class FlatFileContentController implements ContainerInjectableInterface
      *
      * @param array $args as a variadic to catch all arguments.
      *
-     * @return mixed as null when flat file is not found and otherwise a 
+     * @return mixed as null when flat file is not found and otherwise a
      *               complete response object with content to render.
      */
     public function catchAll(...$args)
@@ -57,6 +57,6 @@ class FlatFileContentController implements ContainerInjectableInterface
             "frontmatter" => $content->frontmatter,
         ]);
 
-        return $page->render($content->frontmatter); 
+        return $page->render($content->frontmatter);
     }
 }

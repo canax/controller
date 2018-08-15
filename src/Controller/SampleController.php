@@ -4,6 +4,7 @@ namespace Anax\Controller;
 
 use Anax\Commons\ContainerInjectableInterface;
 use Anax\Commons\ContainerInjectableTrait;
+
 // use Anax\Route\Exception\ForbiddenException;
 // use Anax\Route\Exception\NotFoundException;
 // use Anax\Route\Exception\InternalErrorException;
@@ -60,7 +61,7 @@ class SampleController implements ContainerInjectableInterface
 
 
     /**
-     * Add the request method to the method name to limit what request methods 
+     * Add the request method to the method name to limit what request methods
      * the handler supports.
      * GET mountpoint/info
      *

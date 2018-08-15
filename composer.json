@@ -1,16 +1,14 @@
 {
     "name": "anax/controller",
     "type": "library",
-    "description": "Anax Controller with utility controllers.",
+    "description": "Anax Controller module, with sample starter controllers.",
     "keywords": ["boilerplate", "framework", "mvc", "micro", "education"],
     "homepage": "https://dbwebb.se/anax",
     "license": "MIT",
     "authors": [
         {
             "name": "Mikael Roos",
-            "email": "mos@dbwebb.se",
-            "homepage": "https://dbwebb.se",
-            "role": "Developer"
+            "email": "mos@dbwebb.se"
         }
     ],
     "support": {
