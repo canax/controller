@@ -23,6 +23,8 @@ class DevelopmentController implements ContainerInjectableInterface
      * @throws Anax\Route\Exception\NotFoundException when route is not found.
 
      * @return object as the response.
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function catchAll(...$args) : object
     {

@@ -190,6 +190,8 @@ class SampleController implements ContainerInjectableInterface
      * @param array $args as a variadic parameter.
      *
      * @return mixed
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function catchAll(...$args)
     {
