@@ -61,6 +61,21 @@ class SampleController implements ContainerInjectableInterface
 
 
     /**
+     * This sample method dumps the content of $di.
+     * GET mountpoint/dump-app
+     *
+     * @return string
+     */
+    public function dumpDiActionGet() : string
+    {
+        // Deal with the action and return a response.
+        $services = implode(", ", $this->di->getServices());
+        return __METHOD__ . "<p>\$di contains: $services";
+    }
+
+
+
+    /**
      * Add the request method to the method name to limit what request methods
      * the handler supports.
      * GET mountpoint/info

@@ -3,6 +3,14 @@ Revision history
 
 
 
+v2.0.0-beta.4 (2018-09-25)
+---------------------------------
+
+* Add controller class SampleAppController for app-style programming.
+* Add method dumpDiActionGet to SampleController to dump content of di.
+
+
+
 v2.0.0-beta.3 (2018-08-16)
 ---------------------------------
 
