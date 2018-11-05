@@ -3,6 +3,13 @@ Revision history
 
 
 
+v2.0.0-beta.5 (2018-11-05)
+---------------------------------
+
+* Ignore phpmd public methods in SampleController.
+
+
+
 v2.0.0-beta.4 (2018-09-25)
 ---------------------------------
 
