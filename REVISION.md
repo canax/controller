@@ -3,6 +3,13 @@ Revision history
 
 
 
+v2.0.0-beta.7 (2018-11-05)
+---------------------------------
+
+* Validation phpmd fix SampleAppController.
+
+
+
 v2.0.0-beta.6 (2018-11-05)
 ---------------------------------
 
