@@ -3,6 +3,13 @@ Revision history
 
 
 
+v2.0.0-beta.8 (2018-12-03)
+---------------------------------
+
+* Fix ErrorController taking no argument in catchAll().
+
+
+
 v2.0.0-beta.7 (2018-11-05)
 ---------------------------------
 
