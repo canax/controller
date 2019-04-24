@@ -30,6 +30,10 @@ Table of content
 * [How route path maps to controller/action](#How-route-path-maps-to-controller-action)
 * [Returning values from a controller method](#Returning-values-from-a-controller-method)
 * [Returning a page from the controller method](#Returning-a-page-from-the-controller-method)
+* [Send arguments to a controller method](#Send-arguments-to-a-controller-method)
+* [The initialize method](#The-initialize-method)
+* [The catchAll method](#The-catchAll-method)
+* [Additional controller class members](#Additional-controller-class-members)
 
 
 
@@ -46,7 +50,7 @@ The following are used as is.
 | `Anax\Controller\ErrorhandlerController` | General error handler controller presenting a error page when a route is not found or throws an exception, only for internal routes. |
 | `Anax\Controller\FlatFileContentController` | A rough implementation of a flat file content controller reading markdown files from `content/` ant formatting into html and displaying in a page. |
 
-The following are sample controllers and exists as sample to copy and paste when you build your own controller.
+The following are sample controllers that exists as samples, to copy and paste, when you build your own controller.
 
 | Class, interface, trait                 | Description |
 |-----------------------------------------|-------------|
@@ -127,6 +131,8 @@ class SampleController implements ContainerInjectableInterface
     use ContainerInjectableTrait;
 }
 ```
+
+The service container will then be available as `$this->app` or `$this->di`, depending on the interface used.
 
 
 
@@ -332,10 +338,8 @@ public function indexAction() : object
     $page = $this->app->page;
     $session = $this->app->session;
 
-    $active = $session->get("active-style", null);
-
     $page->add("anax/v2/stylechooser/default", [
-        "activeStyle" => $active,
+        "activeStyle" => $session->get("active-style", null),
     ]);
 
     return $page->render([
@@ -347,37 +351,205 @@ public function indexAction() : object
 Note that the type hinted return type now is `: object` instead of `: string` or `: array`.
 
 
-<!--
-Sending arguments to a controller method
+
+Send arguments to a controller method
 ------------------
+
+A controller method can take arguments, the arguments are mapped from the route path, like this.
+
+* `mountpoint/action/argument1/argument2/argument3`
+
+So, if we want to create a controller method that replies to a route path like `app/view/<id>`, which could be `app/view/1` or `app/view/42`, then we create a method that takes one argument, like this.
+
+```
+/**
+ * This sample method action takes one argument:
+ * GET mountpoint/view/<value>
+ *
+ * @param mixed $id
+ *
+ * @return string
+ */
+public function viewActionGet($id) : string
+{
+    // Deal with the action and return a response.
+    return "You are now viewing id: '$id'";
+}
+```
+
+The method can take as many arguments as you need.
+
+<!--
+default arguments
+variadic arguments
+type hinting versus type checking
+-->
 
 
 
 The initialize method
 ------------------
 
-and internal members.
+Sometimes you have a need to bootstrap the controller, you have some common startup code that you want to execute before any of the actual action callbacks are carried out.
+
+That code should _not_ be created in the constructor. Avoid using a constructor for the controller class. The reason is how the controller class is used and inspected by the router. The router must create a object of the controller, before it actually knows that the controller should be called. You should therefore avoid using a constructor and instead use the method `initialize()` 
+
+The router will always call the controller method `initialize()`, if it is defined by the controller class.
+
+The method can be defined like this.
+
+```
+/**
+ * The initialize method is optional and will always be called before the
+ * target method/action. This is a convienient method where you could
+ * setup internal properties that are commonly used by several methods.
+ *
+ * @return void
+ */
+public function initialize() : void
+{
+    // Use to initialise member variables.
+    $this->db = "active";
+    // Use $this->app or $this->di to access the framework services.
+}
+```
+
+Use the method to store the state in the class properties, for example create the connection to the database or create and initiate a set of objects.
 
 
 
 The catchAll method
 ------------------
 
+When the router fails to find a matching action, it will look for a method `catchAll()` and call it, if it is defined. This method can be used to handle error cases, or it can be used to create a controller which has a single method that deals with all incoming route paths, independent of the actual route path.
+
+Here is a template to use when creating your own `catchAll()`.
+
+```
+/**
+ * Adding an optional catchAll() method will catch all actions sent to the
+ * router. You can then reply with an actual response or return void to
+ * allow for the router to move on to next handler.
+ * A catchAll() handles the following, if a specific action method is not
+ * created:
+ * ANY METHOD mountpoint/**
+ *
+ * @param array $args as a variadic parameter.
+ *
+ * @return mixed
+ *
+ * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+ */
+public function catchAll(...$args)
+{
+    // Deal with the request and send an actual response, or not.
+    return;
+}
+```
+
+The `catchAll()` can take the arguments as a variadic variable `...$args` meaning that it can take any number of arguments and they are all stored in the array `$args`.
+
+You can review the following real life examples of using the `catchAll()` in a controller.
+
+* [`Anax\Controller\DevelopmentController`](src/Controller/DevelopmentController.php)
+* [`Anax\Controller\ErrorController`](src/Controller/ErrorController.php)
+* [`Anax\Controller\FlatFileContentController`](src/Controller/FlatFileContentController.php)
+
+There is also a more powerful module for flat file content in [`anax/content`](https://github.com/canax/content), you can review its controller here.
+
+* [`Anax\Content\FileBasedContentController`](https://github.com/canax/content/blob/master/src/Content/FileBasedContentController.php)
 
 
-Internal router methods
+
+Additional controller class members
 ------------------
 
+You can furthermore create any public, protected or private method and property within the controller class, besides these mentioned special controller methods.
+
+This makes it possible to add common code, used in several controller actions, within class methods. Thus the controller enables some code reuse and allows for a proper code structure.
+
+
+<!--
+Internal router methods
+------------------
+-->
 
 
 Thin or fat controller
 ------------------
 
+The general idea is to have a thin controller, that is, small amount of code that glues together the framework with the model classes.
+
+When your controller grows, take some time to thick if the code can be broken out into other (model) classes that are used by the controller.
+
+A fat controller is the opposite of a thin controller. It has a large amount of code and logic in it.
+
+Avoid fatness and break out your code in small usable classes, each class having a obvious and clear responsibility.
+
 
 
 How to unit test a controller
 ------------------
--->
+
+A controller class can be unit tested like any other class. However, since a controller class is a glue between the framwork and your application (model) classes, it might need some preparations and even som fixtures, to make it easier.
+
+A controller method that does not use the framework service container is pretty straightforward to test. Here is a sample of such a unit test (phpunit).
+
+```
+/**
+ * Call the controller index action.
+ */
+public function testIndexAction()
+{
+    // Create and initiate the controller
+    $this->controller = new SampleAppController();
+    $this->controller->setApp($app);
+    $this->controller->initialize();
+
+    // Carry out the test
+    $res = $this->controller->indexAction();
+    $this->assertIsString($res);
+    $this->assertStringEndsWith("active", $res);
+}
+```
+
+When you have a controller needing the service container you might want to use a `setUp()` to setup the controller like it would be set up by the router.
+
+```
+/**
+ * Setup the controller, before each testcase, just like the router
+ * would set it up.
+ */
+protected function setUp(): void
+{
+    // Init service container $di to contain $app as a service
+    $di = new DIMagic();
+    $app = $di;
+    $di->set("app", $app);
+
+    // Create and initiate the controller
+    $this->controller = new SampleAppController();
+    $this->controller->setApp($app);
+    $this->controller->initialize();
+}
+
+
+
+/**
+ * Call the controller index action.
+ */
+public function testIndexAction()
+{
+    $res = $this->controller->indexAction();
+    $this->assertIsString($res);
+    $this->assertStringEndsWith("active", $res);
+}
+```
+
+Then you can add more test cases for each controller action, and if you have some internal controller methods or fail testing you want to add unit tests for.
+
+As an example, you might want to review the test class [`SampleAppControllerTest`](test/Controller/SampleAppControllerTest) that tests the controller class [`SampleAppController`](src/Controller/SampleAppController). it contains samples usable when creating your own test class for a controller.
+
 
 
 License
