@@ -3,6 +3,15 @@ Revision history
 
 
 
+v2.0.0 (2019-04-23)
+---------------------------------
+
+* Tag as v2.
+* Update docker-compose.yml.
+* Update README.
+
+
+
 v2.0.0-beta.8 (2018-12-03)
 ---------------------------------
 

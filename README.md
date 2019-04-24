@@ -13,18 +13,63 @@ Anax Controller
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/225b19ca0e961727e90b/maintainability)](https://codeclimate.com/github/canax/controller/maintainability)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/65c7dcf6e04848fea7432bae8f1ce117)](https://www.codacy.com/app/mosbth/controller?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=canax/controller&amp;utm_campaign=Badge_Grade)
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/067df5c1-e2f6-4f2e-b479-79cfe511ae7c/mini.png)](https://insight.sensiolabs.com/projects/067df5c1-e2f6-4f2e-b479-79cfe511ae7c)
 
-Anax Controller is a collection of utility controllers.
+Anax Controller is a collection of sample utility controllers, use them as scaffold (copy and modify) when creating your own controllers.
 
-The controllers can be useful when building a site or service or use them as scaffold when creating your own controllers.
-
+The controller can be useful code structure when building a site, as an alternative to ordinary route callbacks.
 
 
-Usage
+
+Class, interface, trait
 ------------------
 
-Feel free to copy the files from this module into your own project, it makes it easier to change and update the code.
+The following classes, interfaces and traits exists.
+
+| Class, interface, trait                 | Description |
+|-----------------------------------------|-------------|
+| `Anax\Controller\DevelopmentController` | To aid debugging and visualising Anax internals. |
+
+
+
+Exceptions
+------------------
+
+There are no module specific exceptions.
+
+It is common to use router exceptions when a route callback fails for some reason. Here are router exceptions that creates appropriate HTTP responses.
+
+| Exception                                     | What    |
+|-----------------------------------------------|---------|
+| `Anax\Route\Exception\ForbiddenException`     | Results in a 304. |
+| `Anax\Route\Exception\NotFoundException`      | Results in a 404. |
+| `Anax\Route\Exception\InternalErrorException` | Results in a 500. |
+
+
+
+App style or di style
+------------------
+
+
+
+Mounting a controller class on the router
+------------------
+
+router/style and config/router-style.
+
+
+
+How route path maps to controller/action
+------------------
+
+
+
+The initialize method
+------------------
+
+
+
+The catchAll method
+------------------
 
 
 
@@ -37,5 +82,5 @@ This software carries a MIT license. See [LICENSE.txt](LICENSE.txt) for details.
 
 ```
  .  
-..:  Copyright (c) 2013 - 2018 Mikael Roos, mos@dbwebb.se
+..:  Copyright (c) 2013 - 2019 Mikael Roos, mos@dbwebb.se
 ```
