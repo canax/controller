@@ -177,12 +177,12 @@ Lets say that the controller `SampleAppController` is mounted on the mount point
 |--------------------|----------------------------|
 | `app`              | `indexAction()` |
 | `app/index`        | `indexAction()`, usually you avoid using the `/index` part when creating an url to this action, thus only linking to `app/`. |
-| `app/dump-app`     | `dumpAppAction()` |
 | `app/info`         | `InfoAction()` |
+| `app/dump-some-data` | `dumpSomeDataAction()` |
 
-The `Action` part is needed, it tells the router that this controller method should be treated as a controller action and mapped to the route path.
+The `Action` part is needed, it tells the router that this controller method should be treated as a callable controller action and mapped to the route path.
 
-The method name is mapped to the route path, except the `Action` part which is removed. The method `infoAction()` is mapped to the route path `info`, the method `dumpAppAction()` is mapped to the route path `dump-action`.
+The method name is mapped to the route path, except the `Action` part which is removed. The method `infoAction()` is mapped to the route path `info`, the method `dumpSomeDataAction()` is mapped to the route path `dump-some-data`.
 
 
 
@@ -196,6 +196,9 @@ You can add the HTTP method at the end of the method name, then the HTTP request
 | `app/create`       | ANY         | `createAction()`           |
 | `app/create`       | GET         | `createActionGet()`        |
 | `app/create`       | POST        | `createActionPost()`       |
+| `app/create`       | PUT         | `createActionPut()`        |
+| `app/create`       | PATCH       | `createActionPatch()`      |
+| `app/create`       | DELETE      | `createActionDelete()`     |
 
 
 
