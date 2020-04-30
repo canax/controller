@@ -177,7 +177,7 @@ Lets say that the controller `SampleAppController` is mounted on the mount point
 |--------------------|----------------------------|
 | `app`              | `indexAction()` |
 | `app/index`        | `indexAction()`, usually you avoid using the `/index` part when creating an url to this action, thus only linking to `app/`. |
-| `app/info`         | `InfoAction()` |
+| `app/info`         | `infoAction()` |
 | `app/dump-some-data` | `dumpSomeDataAction()` |
 
 The `Action` part is needed, it tells the router that this controller method should be treated as a callable controller action and mapped to the route path.
