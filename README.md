@@ -27,7 +27,7 @@ Table of content
 * [Exceptions](#exceptions)
 * [App style or di style](#App-style-or-di-style)
 * [Mounting a controller class on the router](#Mounting-a-controller-class-on-the-router)
-* [How route path maps to controller/action](#How-route-path-maps-to-controller-action)
+* [How route path maps to controller/action](#how-route-path-maps-to-controlleraction)
 * [Returning values from a controller method](#Returning-values-from-a-controller-method)
 * [Returning a page from the controller method](#Returning-a-page-from-the-controller-method)
 * [Send arguments to a controller method](#Send-arguments-to-a-controller-method)
@@ -276,7 +276,7 @@ Each controller method can return a response.
 
 When nothing is returned, the router treats this as a no operation and continues to find the next handler that can deal with the request.
 
-When any value is returned, the controller treats this as the handler successfully dealt with the request and promplty returns the response to the caller. 
+When any value is returned, the controller treats this as the handler successfully dealt with the request and promplty returns the response to the caller.
 
 The returned value is converted into an instance of the Anax response class.
 
@@ -392,7 +392,7 @@ The initialize method
 
 Sometimes you have a need to bootstrap the controller, you have some common startup code that you want to execute before any of the actual action callbacks are carried out.
 
-That code should _not_ be created in the constructor. Avoid using a constructor for the controller class. The reason is how the controller class is used and inspected by the router. The router must create a object of the controller, before it actually knows that the controller should be called. You should therefore avoid using a constructor and instead use the method `initialize()` 
+That code should _not_ be created in the constructor. Avoid using a constructor for the controller class. The reason is how the controller class is used and inspected by the router. The router must create a object of the controller, before it actually knows that the controller should be called. You should therefore avoid using a constructor and instead use the method `initialize()`
 
 The router will always call the controller method `initialize()`, if it is defined by the controller class.
 
